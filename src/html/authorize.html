@@ -1,0 +1,59 @@
+<!doctype html><!---Trello powerup authorisation interface --> 
+<html lang=en>
+  <head>
+    <meta charset=utf-8>
+    <title>Authorize</title> <!-- purpose is to redirect user to trello OAuth, extract token and store it -->
+  </head>
+  <body>
+	  <button type=button>Click to authorize</button> <!--triggers the Oauth process-->
+    <script src="https://p.trellocdn.com/power-up.min.js"></script> 
+    <!-- inserts powerup client library, provides the trellopowerup globalobject used for authentication, UI integration and API access inside Trello--> 
+    <script type="module">
+      //appKey: '6b9f5d16502abd508bc0e216f1a8ef8e',  // change to constant
+      //     appName: 'relative-due-date',   // new 2025 name
+	    //     appAuthor: 'IEEE'//secret not added as can't be seen at the frontend
+      // //Different API then our on serve. This should be the Trello one causing problems
+      // var t = window.TrelloPowerUp.iframe({ //iframe method links thus UI to Trello's powerup capabilities
+      //     appKey: 'qq',  // change to constant
+      //     appName: 'qq',   // new 2025 name
+	    //     appAuthor: 'qq'//secret not added as can't be seen at the frontend
+      // });
+      // t.render(function() { //authorisation flow, button logic only flows after the iframe is finished rendering
+      //   document.querySelector('button').addEventListener('click', function() {
+      //     t.getRestApi() // together with .authorise, opens a trello Oauth popup and returns a promise
+      //       .authorize({ scope: 'read,write' }) //requests read, write
+      //       .then(function(t) { 
+      //         //if user approves (promise is fulfilled), then() (callback) provides parameter t, representing the resolved value of the promise (client instance/object or auth token)
+      //         alert('Success!');
+      //       });
+      //   }, false);
+      // });
+      //New Auth stuff
+      import { appKey, appName } from '../js/constants.js';
+
+      const t = window.TrelloPowerUp.iframe({
+        appKey: appKey,
+        appName: appName,
+        appAuthor: 'IEEE'
+      });
+
+      t.render(function () {
+        document.getElementById('btn').addEventListener('click', function () {
+          t.authorize({
+            scope: 'read,write',
+            returnUrl: window.location.href,
+            expiration: 'never'
+          })
+          .then(async (authToken) => {
+            await t.set('member', 'private', 'trelloToken', authToken);
+            t.closePopup();
+          })
+          .catch(err => {
+            console.error('Authorize failed:', err);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
+<!-- This is likely where the problem is, t.getRestApi().authorize() is deprecated, and new methods require a registered app with Trello, obtaining a clientID and Redirect URL, to authorize using a briwser redirect flow -->
