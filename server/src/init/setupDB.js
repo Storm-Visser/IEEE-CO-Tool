@@ -1,11 +1,22 @@
 require('dotenv').config()
 const mongoose = require('mongoose')
-const mongoURI = `mongodb+srv://admin:${process.env.DB_PASSWORD}@cluster0.fcddf.mongodb.net/relative-due-date?retryWrites=true&w=majority`
+
 module.exports = async (app) => {
-	mongoose.connect(mongoURI, {useUnifiedTopology: true, useNewUrlParser: true}).then(() => console.log('MongoDB connected'))
-	.catch(err => {
-		console.log(err)
-		process.exit(1)
-	})
-}
+	// Choose between local Mongo or remote MongoDB Atlas
+  const mongoUri =
+    process.env.NODE_ENV === 'production'
+      ? `mongodb+srv://admin:${process.env.DB_PASSWORD}@cluster0.fcddf.mongodb.net/relative-due-date?retryWrites=true&w=majority`
+      : process.env.MONGO_URI_LOCAL || 'mongodb://localhost:27017/relative-due-date';
+
+  mongoose
+    .connect(mongoUri, {
+      useUnifiedTopology: true,
+      useNewUrlParser: true,
+    })
+    .then(() => console.log(`MongoDB connected to ${mongoUri.includes('mongodb+srv') ? 'Atlas' : 'Local instance'}`))
+    .catch((err) => {
+      console.error('MongoDB connection error:', err);
+      process.exit(1);
+    });
+};
 //ignix is webserver

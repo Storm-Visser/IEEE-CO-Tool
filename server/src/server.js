@@ -1,3 +1,4 @@
+require('dotenv').config();	
 const express = require('express')
 const app = express()             //use the express app
 
@@ -10,6 +11,8 @@ const setupDB = require('./init/setupDB')
 const setupLogger = require('./init/setupLogger')
 const setupApi = require('./init/setupApi')
 const cors = require('cors');
+const PORT = process.env.PORT || 3000;
+const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || 'https://trello.com';
 
 const start = async() => {    //start allows the use of 'wait', initalises the logger
 	let log = undefined
@@ -27,7 +30,7 @@ const start = async() => {    //start allows the use of 'wait', initalises the l
 		//hash code generated key in app, used for caching optimisation 
 		app.use(express.json())       
 		//express.json parses json data to js object(req), access js object from req.body, also response (res)
-		app.use(cors({ origin: ['https://trello.com'] }));    
+		app.use(cors({ origin: [ALLOWED_ORIGIN] }));    
 		// CORS control which external website app can access
 		// TODO check if this link changed
 		
@@ -53,7 +56,7 @@ const start = async() => {    //start allows the use of 'wait', initalises the l
 		})
                 
 		//listen for requests, starts the server on a port from .env or defaults to 3000
-		const listener = app.listen(process.env.PORT || 3000, () => {
+		const listener = app.listen(PORT, () => {
 			console.log(`Server Ready on port ${listener.address().port}`)
 		})
 	}
