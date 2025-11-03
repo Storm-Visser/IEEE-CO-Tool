@@ -76,7 +76,7 @@ const Popup = (props) => {
 			setCurrentCard(myCard)
 			setCards(boardCards.filter(card => card.id !== myCard.id ))
       const relativeCard = await axios({
-        url: `/getcard?cardid=${myCard.id}&boardid=${board.id}`
+        url: `${process.env.REACT_APP_API_URL}/getcard?cardid=${myCard.id}&boardid=${board.id}`
       })
       setRelativeCard(relativeCard.data.card)
 
@@ -106,7 +106,7 @@ const Popup = (props) => {
 		const boardId = board.id
 		const response = await axios({
 			method: 'POST',
-			url: '/addparent',
+			url: `${process.env.REACT_APP_API_URL}/addparent`,
 			data: {
 				cardName: currentCard.name,
 				newParent: selectedParent.name,
@@ -118,7 +118,7 @@ const Popup = (props) => {
 		const { card } = response.data
 		
 		const relativeBoard = await axios({
-			url: `/getboard?boardid=${boardId}`
+			url: `${process.env.REACT_APP_API_URL}/getboard?boardid=${boardId}`
 		})
 		await axios({
 			method: 'PUT',
@@ -132,7 +132,7 @@ const Popup = (props) => {
 		const board = await t.board('id')
 		const newCard = await axios({
 			method: 'PUT',
-			url: '/removeparent',
+			url: `${process.env.REACT_APP_API_URL}/removeparent`,
 			data: {
 				cardId: relativeCard.cardId,
 				boardId: board.id

@@ -16,7 +16,7 @@ export const verifyCard = async (t) => {
   const board = await t.board('id')
   const listName = list.name
   const cardMetadata = await axios({
-    url: `/getcard?cardid=${trelloCard.id}&boardid=${board.id}`
+    url: `${process.env.REACT_APP_API_URL}/getcard?cardid=${trelloCard.id}&boardid=${board.id}`
   })
   let relativeCard = cardMetadata.data.card
   if(!relativeCard) {
@@ -24,7 +24,7 @@ export const verifyCard = async (t) => {
     const description = trelloCard.desc
     relativeCard = await axios({
       method: 'PUT',
-      url: '/addcard',
+      url: `${process.env.REACT_APP_API_URL}/addcard`,
       data: {
         boardId: board.id,
         cardId: trelloCard.id,
@@ -42,7 +42,7 @@ export const verifyCard = async (t) => {
     if(relativeCard.parent){
       const {cardId, due_date, boardId} = relativeCard
       await axios({
-        url: `/removeparent`,
+        url: `${process.env.REACT_APP_API_URL}/removeparent`,
         method: 'PUT',
         data: {
           boardId,
@@ -54,7 +54,7 @@ export const verifyCard = async (t) => {
     relativeCard.due_date = trelloCard.due
     await axios({
       method: 'POST',
-      url: '/updatedate',
+      url: `${process.env.REACT_APP_API_URL}/updatedate`,
       data: {
         cardId: relativeCard.cardId,
         due_date: relativeCard.due_date,
@@ -64,7 +64,7 @@ export const verifyCard = async (t) => {
     const token = await t.getRestApi().getToken()
 
     const relativeBoard = await axios({
-      url: `/getboard?boardid=${board.id}`
+      url: `${process.env.REACT_APP_API_URL}/getboard?boardid=${board.id}`
     })
     const relativeCards = relativeBoard.data.board
     await updateChildren(relativeCard, relativeCards, token)
@@ -73,7 +73,7 @@ export const verifyCard = async (t) => {
   if(trelloCard.name !== relativeCard.cardName) {
     relativeCard = await axios({
       method: 'POST',
-      url: '/updatename',
+      url: `${process.env.REACT_APP_API_URL}/updatename`,
       data: {
           cardId: relativeCard.cardId,
           cardName: trelloCard.name,
@@ -85,7 +85,7 @@ export const verifyCard = async (t) => {
   if(JSON.stringify(labels) !== JSON.stringify(relativeCard.labels)) {
     relativeCard = await axios({
       method: 'POST',
-      url: '/updatelabels',
+      url: `${process.env.REACT_APP_API_URL}/updatelabels`,
       data: {
         cardId: relativeCard.cardId,
         boardId: board.id,
@@ -96,7 +96,7 @@ export const verifyCard = async (t) => {
   if(trelloCard.desc !== relativeCard.description) {
     relativeCard = await axios({
       method: 'POST',
-      url: '/updatedescription',
+      url: `${process.env.REACT_APP_API_URL}/updatedescription`,
       data: {
         cardId: relativeCard.cardId,
         boardId: board.id,
@@ -107,7 +107,7 @@ export const verifyCard = async (t) => {
     if(listName !== relativeCard.listName) {
       relativeCard = await axios({
         method: 'POST',
-        url: '/updatelist',
+        url: `${process.env.REACT_APP_API_URL}/updatelist`,
         data: {
           cardId: relativeCard.cardId,
           boardId: board.id,

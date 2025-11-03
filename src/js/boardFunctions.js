@@ -19,7 +19,7 @@ export const checkBoard = async (t, opts) => {
 			card.due_date = trelloCard.due
 			await axios({
 				method: 'POST',
-				url: `/updatedate`,
+				url: `${process.env.REACT_APP_API_URL}/updatedate`,
 				data: {
 					cardId: card.cardId,
 					due_date: card.due_date
@@ -54,7 +54,7 @@ export const updateChildren = async (currentCard, relativeCards, token) => {
 					const [relativeResponse, trelloResponse] = await Promise.all([
 						axios({
 							method: 'POST',
-							url: '/updatedate',
+							url: `${process.env.REACT_APP_API_URL}/updatedate`,
 							data: {
 								cardId: childCard.cardId,
 								boardId: currentCard.boardId,

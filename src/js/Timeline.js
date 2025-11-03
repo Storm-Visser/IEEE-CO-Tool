@@ -54,7 +54,7 @@ const Timeline = (props) => {
 			const filteredList = l.filter(list => !ignoreList.includes(list.name))
 			const relCards = await axios({
 				method: 'GET',
-				url: `/getboard?boardid=${b.id}`
+				url: `${process.env.REACT_APP_API_URL}/getboard?boardid=${b.id}`
 			})
 			setRelativeCards(relCards.data.board)
 			const r = relCards.data.board

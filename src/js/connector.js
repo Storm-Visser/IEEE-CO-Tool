@@ -104,7 +104,7 @@ const openTimeline = (t) => {
 //       await verifyRules(t, card, list)
 //     }
     
-//     const response = await axios(`/getcard?cardid=${card.id}&boardid=${board.id}`)
+//     const response = await axios(`${process.env.REACT_APP_API_URL}/getcard?cardid=${card.id}&boardid=${board.id}`)
 //     const relativeCard = response.data.card
 //     if(relativeCard.parent) {
 //       return [{ title: 'Parent', text: generateBadgeText(relativeCard) }]
@@ -171,7 +171,7 @@ window.TrelloPowerUp.initialize({
       await verifyRules(t, card, list)
     }
     
-    const response = await axios(`/getcard?cardid=${card.id}&boardid=${board.id}`)
+    const response = await axios(`${process.env.REACT_APP_API_URL}/getcard?cardid=${card.id}&boardid=${board.id}`)
     const relativeCard = response.data.card
     if(relativeCard.parent) {
       return [{ title: 'Parent', text: generateBadgeText(relativeCard) }]
