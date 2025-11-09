@@ -174,7 +174,7 @@ window.TrelloPowerUp.initialize({
     
     const response = await axios(`/getcard?cardid=${card.id}&boardid=${board.id}`)
     const relativeCard = response.data.card
-    if(relativeCard.parent) {
+    if(relativeCard && relativeCard.parent) {
       return [{ title: 'Parent', text: generateBadgeText(relativeCard) }]
     } else {
       return []
