@@ -116,71 +116,71 @@ const openTimeline = (t) => {
 
 window.TrelloPowerUp.initialize({
   // Capabilities
-  'authorization-status': function(t, opts) {
-    // Decide whether the user is authorized
-    // e.g. check whether a token exists in Power-Up member-level storage
-    return t.get('member', 'private', 'trelloToken')
-      .then(token => {
-        return { authorized: !!token };
-      });
+  // 'authorization-status': function(t, opts) {
+  //   // Decide whether the user is authorized
+  //   // e.g. check whether a token exists in Power-Up member-level storage
+  //   return t.get('member', 'private', 'trelloToken')
+  //     .then(token => {
+  //       return { authorized: !!token };
+  //     });
+  // },
+
+  // 'show-authorization': function(t, opts) {
+  //   // What to show when the user clicks “Authorize Power-Up”
+  //   return t.popup({
+  //     type: 'popup',
+  //     title: 'Authorize Power-Up',
+  //     url: 'https://relative-due-date.idi.ntnu.no/authorize.html',
+  //     returnUrl: window.location.href,
+  //     height: 140,
+  //   });
+  // },
+
+  'card-buttons': async function(t) {
+    const token = await t.get('member', 'private', 'trelloToken');
+    if (token) {
+      return [
+        { text: 'Relative due date', callback: openPopup },
+        { text: 'CIS Timeline', callback: openTimeline }
+      ];
+    } else {
+      return [
+        {
+          text: 'Authorize Power-Up',
+          callback: t.authorize.bind(t, {
+            type: 'popup',
+            title: 'Authorize Power-Up',
+            url: (secret) => `https://relative-due-date.idi.ntnu.no/authorize.html?secret=${secret}`,
+            returnUrl: window.location.href,
+            height: 140,
+          })
+        }
+      ];
+    }
   },
 
-  'show-authorization': function(t, opts) {
-    // What to show when the user clicks “Authorize Power-Up”
-    return t.popup({
-      type: 'popup',
-      title: 'Authorize Power-Up',
-      url: 'https://relative-due-date.idi.ntnu.no/authorize.html',
-      returnUrl: window.location.href,
-      height: 140,
-    });
-  },
-
-  'card-buttons': function(t) {
-    return t.get('member', 'private', 'trelloToken')
-    .then(isAuth => {
-      if (isAuth) {
-        return [
-          { text: 'Relative due date', callback: openPopup },
-          { text: 'CIS Timeline', callback: openTimeline }
-        ];
-      } else {
-        return [
-          { 
-            text: 'Authorize Power-Up', 
-            callback: (t) => t.authorize({
-              type: 'popup',
-              title: 'Authorize Power-Up',
-              url: 'https://relative-due-date.idi.ntnu.no/authorize.html',
-              returnUrl: window.location.href,
-              height: 140,
-            })
-          }
-        ];
-      }
-    });
-  },
-
-  'board-buttons': async (t, opts) => {
-    const isAuth = await t.get('member', 'private', 'trelloToken');
-    if (isAuth) {
+  'board-buttons': async function(t) {
+    const token = await t.get('member', 'private', 'trelloToken');
+    if (token) {
+      // User is authorized
       return [
         { text: 'Help', callback: openDocumentation },
         { text: 'CIS Timeline', callback: openTimeline }
       ];
     } else {
+      // User is not authorized
       return [
-          { 
-            text: 'Authorize Power-Up', 
-            callback: (t) => t.authorize({
-              type: 'popup',
-              title: 'Authorize Power-Up',
-              url: 'https://relative-due-date.idi.ntnu.no/authorize.html',
-              returnUrl: window.location.href,
-              height: 140,
-            })
-          }
-        ];
+        {
+          text: 'Authorize Power-Up',
+          callback: t.authorize.bind(t, {
+            type: 'popup',
+            title: 'Authorize Power-Up',
+            url: (secret) => `https://relative-due-date.idi.ntnu.no/authorize.html?secret=${secret}`,
+            returnUrl: window.location.href,
+            height: 140,
+          })
+        }
+      ];
     }
   },
 
