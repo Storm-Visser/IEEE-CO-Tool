@@ -20,7 +20,7 @@ const openPopup = (t, opts) => {
 const showIframe = (t) => {
   return t.popup({
     title: 'Authorize to continue',
-    url: './authorize.html'
+    url: 'https://relative-due-date.idi.ntnu.no/authorize.html',
   })
 }
 
@@ -129,7 +129,7 @@ window.TrelloPowerUp.initialize({
     // What to show when the user clicks “Authorize Power-Up”
     return t.popup({
       title: 'Authorize Power-Up',
-      url: './authorize.html',
+      url: 'https://relative-due-date.idi.ntnu.no/authorize.html',
       height: 140,
     });
   },
@@ -147,8 +147,9 @@ window.TrelloPowerUp.initialize({
           { 
             text: 'Authorize Power-Up', 
             callback: (t) => t.authorize({
-              type: 'popup',
-              url: './authorize.html'
+              title: 'Authorize Power-Up',
+              url: 'https://relative-due-date.idi.ntnu.no/authorize.html',
+              height: 140,
             })
           }
         ];
@@ -165,8 +166,15 @@ window.TrelloPowerUp.initialize({
       ];
     } else {
       return [
-        { text: 'Authorize Power-Up', callback: (t) => t.authorize() }
-      ];
+          { 
+            text: 'Authorize Power-Up', 
+            callback: (t) => t.authorize({
+              title: 'Authorize Power-Up',
+              url: 'https://relative-due-date.idi.ntnu.no/authorize.html',
+              height: 140,
+            })
+          }
+        ];
     }
   },
 
