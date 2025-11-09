@@ -147,15 +147,16 @@ window.TrelloPowerUp.initialize({
       return [
         {
           text: 'Authorize Power-Up',
-          callback: t.authorize.bind(t, {
-            type: 'popup',
-            title: 'Authorize Power-Up',
-            url: function(secret) {
-              return 'https://relative-due-date.idi.ntnu.no/authorize.html?secret=' + secret;
-            },
-            returnUrl: window.location.href,
-            height: 140,
-          })
+          callback: function(t) {
+            return t.authorize({
+              title: 'Authorize Power-Up',
+              url: function(secret) {
+                return 'https://relative-due-date.idi.ntnu.no/authorize.html?secret=' + secret;
+              },
+              returnUrl: window.location.href,
+              height: 140
+            });
+          }
         }
       ];
     }
@@ -174,15 +175,16 @@ window.TrelloPowerUp.initialize({
       return [
         {
           text: 'Authorize Power-Up',
-          callback: t.authorize.bind(t, {
-            type: 'popup',
-            title: 'Authorize Power-Up',
-            url: function(secret) {
-              return 'https://relative-due-date.idi.ntnu.no/authorize.html?secret=' + secret;
-            },
-            returnUrl: window.location.href,
-            height: 140,
-          })
+          callback: function(t) {
+            return t.authorize({
+              title: 'Authorize Power-Up',
+              url: function(secret) {
+                return 'https://relative-due-date.idi.ntnu.no/authorize.html?secret=' + secret;
+              },
+              returnUrl: window.location.href,
+              height: 140
+            });
+          }
         }
       ];
     }
