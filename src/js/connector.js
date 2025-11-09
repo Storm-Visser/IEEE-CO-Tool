@@ -174,9 +174,14 @@ window.TrelloPowerUp.initialize({
     const card = await t.card('all')
     const board = await t.board('all')
     const list = await t.list('name')
-    if (list.name === 'IEEE CIS Rules Summary') { 
-      await verifyRules(t, card, list)
+    if (list){
+      if (list.name === 'IEEE CIS Rules Summary') { 
+        await verifyRules(t, card, list)
+      }
+    } else {
+      console.log("list not found", { card, board, t })
     }
+    
     
     const response = await axios(`/getcard?cardid=${card.id}&boardid=${board.id}`)
     const relativeCard = response.data.card

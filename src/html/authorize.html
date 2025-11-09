@@ -25,7 +25,8 @@
             name: 'IEEE Power-Up',
             scope: { read: true, write: true },
             expiration: 'never',
-            appKey: appKey
+            appKey: appKey,
+            returnUrl: window.location.href
           })
           .then(async (authToken) => {
             await t.set('member', 'private', 'trelloToken', authToken);
