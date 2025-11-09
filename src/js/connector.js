@@ -144,7 +144,13 @@ window.TrelloPowerUp.initialize({
         ];
       } else {
         return [
-          { text: 'Authorize Power-Up', callback: (t) => t.authorize() }
+          { 
+            text: 'Authorize Power-Up', 
+            callback: (t) => t.authorize({
+              type: 'popup',
+              url: './authorize.html'
+            })
+          }
         ];
       }
     });
