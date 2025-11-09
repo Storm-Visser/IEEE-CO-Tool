@@ -135,7 +135,8 @@ window.TrelloPowerUp.initialize({
   },
 
   'card-buttons': function(t) {
-    return t.isAuthorized().then(isAuth => {
+    return t.get('member', 'private', 'trelloToken')
+    .then(isAuth => {
       if (isAuth) {
         return [
           { text: 'Relative due date', callback: openPopup },
@@ -150,7 +151,7 @@ window.TrelloPowerUp.initialize({
   },
 
   'board-buttons': async (t, opts) => {
-    const isAuth = await t.isAuthorized();
+    const isAuth = await t.get('member', 'private', 'trelloToken');
     if (isAuth) {
       return [
         { text: 'Help', callback: openDocumentation },
