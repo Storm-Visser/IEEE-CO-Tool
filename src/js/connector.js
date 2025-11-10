@@ -149,17 +149,17 @@ window.TrelloPowerUp.initialize({
           text: 'Authorize Power-Up',
           callback: function(t) {
             // Open a popup that handles OAuth asynchronously
-            t.popup({
-              title: 'Authorize Power-Up',
-              url: 'https://trello.com/1/authorize' +
-                  '?expiration=never' +
-                  '&name=' + encodeURIComponent(appName) +
-                  '&scope=read,write' +
-                  '&key=' + appKey +
-                  '&callback_method=postMessage' +
-                  '&return_url=' + encodeURIComponent(window.location.href),
-              height: 600
-            });
+            window.open(
+              'https://trello.com/1/authorize' +
+              '?expiration=never' +
+              '&name=' + encodeURIComponent(appName) +
+              '&scope=read,write' +
+              '&key=' + appKey +
+              '&callback_method=postMessage' +
+              '&return_url=' + encodeURIComponent(window.location.href),
+              'Trello OAuth',
+              'width=700,height=600'
+            );
             //return directely to avoid timeout...
             return [];
           }
@@ -183,17 +183,17 @@ window.TrelloPowerUp.initialize({
           text: 'Authorize Power-Up',
           callback: function(t) {
             // Open a popup that handles OAuth asynchronously
-            t.popup({
-              title: 'Authorize Power-Up',
-              url: 'https://trello.com/1/authorize' +
-                  '?expiration=never' +
-                  '&name=' + encodeURIComponent(appName) +
-                  '&scope=read,write' +
-                  '&key=' + appKey +
-                  '&callback_method=postMessage' +
-                  '&return_url=' + encodeURIComponent(window.location.href),
-              height: 600
-            });
+            window.open(
+              'https://trello.com/1/authorize' +
+              '?expiration=never' +
+              '&name=' + encodeURIComponent(appName) +
+              '&scope=read,write' +
+              '&key=' + appKey +
+              '&callback_method=postMessage' +
+              '&return_url=' + encodeURIComponent(window.location.href),
+              'Trello OAuth',
+              'width=700,height=600'
+            );
             //return directely to avoid timeout...
             return [];
           }
