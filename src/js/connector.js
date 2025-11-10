@@ -148,30 +148,20 @@ window.TrelloPowerUp.initialize({
         {
           text: 'Authorize Power-Up',
           callback: function(t) {
-            return t.authorize(
-              function(secret) {
-                return 'https://trello.com/1/authorize' +
+            // Open a popup that handles OAuth asynchronously
+            t.popup({
+              title: 'Authorize Power-Up',
+              url: 'https://trello.com/1/authorize' +
                   '?expiration=never' +
                   '&name=' + encodeURIComponent(appName) +
                   '&scope=read,write' +
                   '&key=' + appKey +
                   '&callback_method=postMessage' +
-                  '&return_url=' + encodeURIComponent(window.location.href) +
-                  '&secret=' + secret;
-              },
-              {
-                type: 'popup',
-                title: 'Authorize Power-Up',
-                height: 600
-              }
-            )
-            .then(async (authToken) => {
-              await t.set('member', 'private', 'trelloToken', authToken);
-              console.log('Authorization success!', authToken);
-            })
-            .catch(err => {
-              console.error('Authorization failed:', err);
+                  '&return_url=' + encodeURIComponent(window.location.href),
+              height: 600
             });
+            //return directely to avoid timeout...
+            return [];
           }
         }
       ];
@@ -192,30 +182,20 @@ window.TrelloPowerUp.initialize({
         {
           text: 'Authorize Power-Up',
           callback: function(t) {
-            return t.authorize(
-              function(secret) {
-                return 'https://trello.com/1/authorize' +
+            // Open a popup that handles OAuth asynchronously
+            t.popup({
+              title: 'Authorize Power-Up',
+              url: 'https://trello.com/1/authorize' +
                   '?expiration=never' +
                   '&name=' + encodeURIComponent(appName) +
                   '&scope=read,write' +
                   '&key=' + appKey +
                   '&callback_method=postMessage' +
-                  '&return_url=' + encodeURIComponent(window.location.href) +
-                  '&secret=' + secret;
-              },
-              {
-                type: 'popup',
-                title: 'Authorize Power-Up',
-                height: 600
-              }
-            )
-            .then(async (authToken) => {
-              await t.set('member', 'private', 'trelloToken', authToken);
-              console.log('Authorization success!', authToken);
-            })
-            .catch(err => {
-              console.error('Authorization failed:', err);
+                  '&return_url=' + encodeURIComponent(window.location.href),
+              height: 600
             });
+            //return directely to avoid timeout...
+            return [];
           }
         }
       ];
