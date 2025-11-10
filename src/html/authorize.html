@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"><title>Authorize</title></head>
+<head>
+  <meta charset="UTF-8">
+  <title>Authorize Power-Up</title>
+</head>
 <body>
-  <script>
-    window.addEventListener('message', function(event) {
-      if (!window.opener) return;
-      // Forward the token to the main window
-      window.opener.postMessage(event.data, window.location.origin);
-      window.close();
-    });
-  </script>
+  <h2>Click to authorize Trello</h2>
+  <button id="btn">Authorize</button>
+
+  <script type="module" src="../js/authorize.js"></script>
 </body>
 </html>

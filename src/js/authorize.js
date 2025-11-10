@@ -1,26 +1,35 @@
-import { appKey, appName } from './constants.js';
+import { appKey, appName } from './constants.js'; // adjust path if needed
 
 const t = window.TrelloPowerUp.iframe({
-  appKey: appKey,
-  appName: appName,
+  appKey,
+  appName,
   appAuthor: 'IEEE'
 });
 
+document.getElementById('btn').addEventListener('click', () => {
+  const oauthUrl =
+    `https://trello.com/1/authorize?` +
+    `expiration=never&` +
+    `name=${encodeURIComponent(appName)}&` +
+    `scope=read,write&` +
+    `key=${appKey}&` +
+    `callback_method=postMessage&` +
+    `return_url=${encodeURIComponent(window.location.href)}`;
 
-t.render(() => {
+  const oauthWindow = window.open(oauthUrl, 'Trello OAuth', 'width=600,height=600');
+
   window.addEventListener('message', async (event) => {
+    if (event.origin !== window.location.origin) return;
     const token = event.data && event.data.token;
-
     if (token) {
-      // Save token to member storage
       await t.set('member', 'private', 'trelloToken', token);
 
-      // Notify opener if possible
       if (window.opener && window.opener.t) {
         await window.opener.t.set('member', 'private', 'trelloToken', token);
       }
 
       alert('Authorization successful!');
+      oauthWindow.close();
       window.close();
     }
   }, false);

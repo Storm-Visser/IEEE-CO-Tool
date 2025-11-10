@@ -145,31 +145,22 @@ window.TrelloPowerUp.initialize({
       { text: 'CIS Timeline', callback: openTimeline }
     ];
   } else {
+    // User not authorized → open our authorize.html popup
     return [
       {
         text: 'Authorize Power-Up',
-        callback: function(t) {
-          const appKey = 'f8da03ef4e7b8f8ed708470a3680fab2';
-          const appName = 'IEEECOTOOL';
-
-          const returnUrl = encodeURIComponent('https://relative-due-date.idi.ntnu.no/authorize.html');
-
-          const oauthUrl =
-            `https://trello.com/1/authorize?` +
-            `expiration=never&` +
-            `name=${encodeURIComponent(appName)}&` +
-            `scope=read,write&` +
-            `key=${appKey}&` +
-            `callback_method=postMessage&` +
-            `return_url=${returnUrl}`;
-
-          // Open OAuth popup
-          window.open(oauthUrl, 'Trello OAuth', 'width=600,height=600');
+        callback: (t) => {
+          window.open(
+            '/authorize.html', // path to your authorize.html
+            'Authorize Power-Up',
+            'width=600,height=600'
+          );
         }
       }
     ];
   }
 },
+
 
 'card-buttons': async function(t) {
   const token = await t.get('member', 'private', 'trelloToken');
