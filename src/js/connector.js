@@ -149,7 +149,9 @@ window.TrelloPowerUp.initialize({
           text: 'Authorize Power-Up',
           callback: function(t) {
             return t.authorize(
-              'https://relative-due-date.idi.ntnu.no/authorize.html', // string URL
+              function(secret) {
+                return 'https://relative-due-date.idi.ntnu.no/authorize.html#secret=' + secret;
+              }, // string URL
               {
                 type: 'popup',
                 title: 'Authorize Power-Up',
@@ -178,7 +180,9 @@ window.TrelloPowerUp.initialize({
           text: 'Authorize Power-Up',
           callback: function(t) {
             return t.authorize(
-              'https://relative-due-date.idi.ntnu.no/authorize.html', // string URL
+              function(secret) {
+                return 'https://relative-due-date.idi.ntnu.no/authorize.html#secret=' + secret;
+              },
               {
                 type: 'popup',
                 title: 'Authorize Power-Up',
