@@ -7,35 +7,6 @@
 <body>
   <h2>Waiting for authorization process</h2>
   <script src="https://p.trellocdn.com/power-up.min.js"></script>
-  <script>
-    const appKey = 'f8da03ef4e7b8f8ed708470a3680fab2';
-    const appName = 'IEEECOTOOL';
-
-    const t = window.TrelloPowerUp.iframe({
-      appKey: appKey,
-      appName: appName,
-      appAuthor: 'IEEE'
-    });
-
-    // Get the secret from URL hash
-    const secret = window.location.hash.replace('#secret=', '');
-
-    // Wait for Trello OAuth token via postMessage
-    t.render(() => {
-      window.addEventListener('message', async (event) => {
-        const token = event.data?.token;
-        if (token) {
-          // Save token to member storage
-          await t.set('member', 'private', 'trelloToken', token);
-          // Notify main window if possible
-          if (window.opener && window.opener.t) {
-            window.opener.t.set('member', 'private', 'trelloToken', token);
-          }
-          alert('Authorization successful!');
-          window.close();
-        }
-      }, false);
-    });
-  </script>
+  <script src="../js/authorize.js"></script>
 </body>
 </html>

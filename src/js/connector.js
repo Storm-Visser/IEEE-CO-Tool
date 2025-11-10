@@ -136,40 +136,40 @@ window.TrelloPowerUp.initialize({
   //   });
   // },
 
-  'board-buttons': async function(t) {
-    const token = await t.get('member', 'private', 'trelloToken');
-    if (token) {
-      // User already authorized
-      return [
-        { text: 'Help', callback: openDocumentation },
-        { text: 'CIS Timeline', callback: openTimeline }
-      ];
-    } else {
-      return [
-        {
-          text: 'Authorize Power-Up',
-          callback: function(t) {
-            const appKey = 'f8da03ef4e7b8f8ed708470a3680fab2';
-            const appName = 'IEEECOTOOL';
-            const secret = PostMessageIO.randomId();
-            const returnUrl = encodeURIComponent('https://relative-due-date.idi.ntnu.no/authorize.html#secret=' + secret);
+'board-buttons': async function(t) {
+  const token = await t.get('member', 'private', 'trelloToken');
+  if (token) {
+    // User already authorized
+    return [
+      { text: 'Help', callback: openDocumentation },
+      { text: 'CIS Timeline', callback: openTimeline }
+    ];
+  } else {
+    return [
+      {
+        text: 'Authorize Power-Up',
+        callback: function(t) {
+          const appKey = 'f8da03ef4e7b8f8ed708470a3680fab2';
+          const appName = 'IEEECOTOOL';
+          const secret = PostMessageIO.randomId();
+          const returnUrl = encodeURIComponent('https://relative-due-date.idi.ntnu.no/authorize.html#secret=' + secret);
 
-            const oauthUrl =
-              `https://trello.com/1/authorize?` +
-              `expiration=never&` +
-              `name=${encodeURIComponent(appName)}&` +
-              `scope=read,write&` +
-              `key=${appKey}&` +
-              `callback_method=postMessage&` +
-              `return_url=${returnUrl}`;
+          const oauthUrl =
+            `https://trello.com/1/authorize?` +
+            `expiration=never&` +
+            `name=${encodeURIComponent(appName)}&` +
+            `scope=read,write&` +
+            `key=${appKey}&` +
+            `callback_method=postMessage&` +
+            `return_url=${returnUrl}`;
 
-            // Open OAuth popup
-            window.open(oauthUrl, 'Trello OAuth', 'width=600,height=600');
-          }
+          // Open OAuth popup
+          window.open(oauthUrl, 'Trello OAuth', 'width=600,height=600');
         }
-      ];
-    }
-  },
+      }
+    ];
+  }
+},
 
 'card-buttons': async function(t) {
   const token = await t.get('member', 'private', 'trelloToken');
