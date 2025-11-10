@@ -151,8 +151,8 @@ window.TrelloPowerUp.initialize({
         callback: function(t) {
           const appKey = 'f8da03ef4e7b8f8ed708470a3680fab2';
           const appName = 'IEEECOTOOL';
-          const secret = PostMessageIO.randomId();
-          const returnUrl = encodeURIComponent('https://relative-due-date.idi.ntnu.no/authorize.html#secret=' + secret);
+
+          const returnUrl = encodeURIComponent('https://relative-due-date.idi.ntnu.no/authorize.html');
 
           const oauthUrl =
             `https://trello.com/1/authorize?` +
@@ -185,8 +185,8 @@ window.TrelloPowerUp.initialize({
         callback: function(t) {
           const appKey = 'f8da03ef4e7b8f8ed708470a3680fab2';
           const appName = 'IEEECOTOOL';
-          const secret = PostMessageIO.randomId();
-          const returnUrl = encodeURIComponent('https://relative-due-date.idi.ntnu.no/authorize.html#secret=' + secret);
+          
+          const returnUrl = encodeURIComponent('https://relative-due-date.idi.ntnu.no/authorize.html');
 
           const oauthUrl =
             `https://trello.com/1/authorize?` +

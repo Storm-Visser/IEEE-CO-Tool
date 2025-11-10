@@ -6,8 +6,6 @@ const t = window.TrelloPowerUp.iframe({
   appAuthor: 'IEEE'
 });
 
-// Get the secret from URL hash
-const secret = window.location.hash.replace('#secret=', '');
 
 t.render(() => {
   window.addEventListener('message', async (event) => {
