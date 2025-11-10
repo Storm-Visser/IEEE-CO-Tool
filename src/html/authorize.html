@@ -8,7 +8,7 @@
 	  <button type=button id="btn">Click to authorize</button> <!--triggers the Oauth process-->
     <script src="https://p.trellocdn.com/power-up.min.js"></script> 
     <!-- inserts powerup client library, provides the trellopowerup globalobject used for authentication, UI integration and API access inside Trello--> 
-    <script type="module">
+    <script>
       const appKey = 'f8da03ef4e7b8f8ed708470a3680fab2';
       const appName = 'IEEECOTOOL';
 
@@ -17,6 +17,8 @@
         appName: appName,
         appAuthor: 'IEEE'
       });
+
+      console.log('Trello iframe initialized:', t);
 
       t.render(function () {
         document.getElementById('btn').addEventListener('click', function () {
