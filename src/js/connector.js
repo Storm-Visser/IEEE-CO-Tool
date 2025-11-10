@@ -149,11 +149,10 @@ window.TrelloPowerUp.initialize({
     return [
       {
         text: 'Authorize Power-Up',
-        callback: (t) => {
-          window.open(
-            'https://relative-due-date.idi.ntnu.no/authorize.html',
-            'Authorize Power-Up',
-            'width=600,height=600'
+        callback: function(t) {
+          return t.authorize(
+            (secret) => t.signUrl('https://relative-due-date.idi.ntnu.no/authorize.html#secret=' + secret),
+            { type: 'popup', title: 'Authorize Power-Up', height: 400 }
           );
         }
       }
