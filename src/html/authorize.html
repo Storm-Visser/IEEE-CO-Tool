@@ -33,6 +33,7 @@
           .then(async (authToken) => {
             await t.set('member', 'private', 'trelloToken', authToken);
             alert('Success!');
+            window.authorize(authToken)
             t.closePopup();
           })
           .catch(err => {
