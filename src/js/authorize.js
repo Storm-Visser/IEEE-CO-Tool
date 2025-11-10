@@ -1,4 +1,6 @@
-import { appKey, appName } from './constants.js'; // adjust path if needed
+// import { appKey, appName } from './constants.js';
+const appKey = 'f8da03ef4e7b8f8ed708470a3680fab2';
+const appName = 'IEEECOTOOL';
 
 const t = window.TrelloPowerUp.iframe({
   appKey,
