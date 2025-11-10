@@ -1,12 +1,14 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Authorize</title>
-</head>
+<head><meta charset="UTF-8"><title>Authorize</title></head>
 <body>
-  <h2>Waiting for authorization process</h2>
-  <script src="https://p.trellocdn.com/power-up.min.js"></script>
-  <script src="../js/authorize.js"></script>
+  <script>
+    window.addEventListener('message', function(event) {
+      if (!window.opener) return;
+      // Forward the token to the main window
+      window.opener.postMessage(event.data, window.location.origin);
+      window.close();
+    });
+  </script>
 </body>
 </html>

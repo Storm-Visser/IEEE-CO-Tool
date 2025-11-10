@@ -197,6 +197,25 @@ window.TrelloPowerUp.initialize({
             `callback_method=postMessage&` +
             `return_url=${returnUrl}`;
 
+          window.addEventListener('message', async (event) => {
+            // Make sure the message is coming from Trello
+            if (event.origin !== 'https://relative-due-date.idi.ntnu.no') return;
+
+            const token = event.data; // Trello sends the token as the message
+            if (token) {
+              const t = window.TrelloPowerUp.iframe({
+                appKey: appKey,
+                appName: appName,
+                appAuthor: 'IEEE'
+              });
+
+              // Save the token in member storage
+              await t.set('member', 'private', 'trelloToken', token);
+
+              alert('Authorization successful!');
+            }
+          }, false);
+
           // Open OAuth popup
           window.open(oauthUrl, 'Trello OAuth', 'width=600,height=600');
         }
