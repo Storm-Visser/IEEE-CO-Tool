@@ -148,20 +148,34 @@ window.TrelloPowerUp.initialize({
         {
           text: 'Authorize Power-Up',
           callback: function(t) {
-            // Open a popup that handles OAuth asynchronously
-            window.open(
-              'https://trello.com/1/authorize' +
-              '?expiration=never' +
-              '&name=' + encodeURIComponent(appName) +
-              '&scope=read,write' +
-              '&key=' + appKey +
-              '&callback_method=postMessage' +
-              '&return_url=' + encodeURIComponent(window.location.href),
-              'Trello OAuth',
-              'width=700,height=600'
-            );
-            //return directely to avoid timeout...
-            return [];
+            // Open Trello OAuth directly, redirect to our authorize.html
+            return t.authorize(
+              function(secret) {
+                const redirectUri = encodeURIComponent(
+                  'https://relative-due-date.idi.ntnu.no/authorize.html'
+                );
+                return `https://trello.com/1/authorize` +
+                  `?expiration=never` +
+                  `&name=${encodeURIComponent(appName)}` +
+                  `&scope=read,write` +
+                  `&key=${appKey}` +
+                  `&callback_method=postMessage` +
+                  `&return_url=${redirectUri}` +
+                  `&secret=${secret}`;
+              },
+              {
+                type: 'popup',
+                title: 'Authorize Power-Up',
+                height: 600
+              }
+            )
+            .then(async (authToken) => {
+              await t.set('member', 'private', 'trelloToken', authToken);
+              console.log('Authorization success!', authToken);
+            })
+            .catch(err => {
+              console.error('Authorization failed:', err);
+            });
           }
         }
       ];
@@ -182,20 +196,34 @@ window.TrelloPowerUp.initialize({
         {
           text: 'Authorize Power-Up',
           callback: function(t) {
-            // Open a popup that handles OAuth asynchronously
-            window.open(
-              'https://trello.com/1/authorize' +
-              '?expiration=never' +
-              '&name=' + encodeURIComponent(appName) +
-              '&scope=read,write' +
-              '&key=' + appKey +
-              '&callback_method=postMessage' +
-              '&return_url=' + encodeURIComponent(window.location.href),
-              'Trello OAuth',
-              'width=700,height=600'
-            );
-            //return directely to avoid timeout...
-            return [];
+            // Open Trello OAuth directly, redirect to our authorize.html
+            return t.authorize(
+              function(secret) {
+                const redirectUri = encodeURIComponent(
+                  'https://relative-due-date.idi.ntnu.no/authorize.html'
+                );
+                return `https://trello.com/1/authorize` +
+                  `?expiration=never` +
+                  `&name=${encodeURIComponent(appName)}` +
+                  `&scope=read,write` +
+                  `&key=${appKey}` +
+                  `&callback_method=postMessage` +
+                  `&return_url=${redirectUri}` +
+                  `&secret=${secret}`;
+              },
+              {
+                type: 'popup',
+                title: 'Authorize Power-Up',
+                height: 600
+              }
+            )
+            .then(async (authToken) => {
+              await t.set('member', 'private', 'trelloToken', authToken);
+              console.log('Authorization success!', authToken);
+            })
+            .catch(err => {
+              console.error('Authorization failed:', err);
+            });
           }
         }
       ];
