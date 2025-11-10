@@ -136,11 +136,12 @@ window.TrelloPowerUp.initialize({
   //   });
   // },
 
-  'card-buttons': async function(t) {
+  'board-buttons': async function(t) {
     const token = await t.get('member', 'private', 'trelloToken');
     if (token) {
+      // User already authorized
       return [
-        { text: 'Relative due date', callback: openPopup },
+        { text: 'Help', callback: openDocumentation },
         { text: 'CIS Timeline', callback: openTimeline }
       ];
     } else {
@@ -148,87 +149,62 @@ window.TrelloPowerUp.initialize({
         {
           text: 'Authorize Power-Up',
           callback: function(t) {
-            // Open Trello OAuth directly, redirect to our authorize.html
-            return t.authorize(
-              function(secret) {
-                const redirectUri = encodeURIComponent(
-                  'https://relative-due-date.idi.ntnu.no/authorize.html'
-                );
-                return `https://trello.com/1/authorize` +
-                  `?expiration=never` +
-                  `&name=${encodeURIComponent(appName)}` +
-                  `&scope=read,write` +
-                  `&key=${appKey}` +
-                  `&callback_method=postMessage` +
-                  `&return_url=${redirectUri}` +
-                  `&secret=${secret}`;
-              },
-              {
-                type: 'popup',
-                title: 'Authorize Power-Up',
-                height: 600
-              }
-            )
-            .then(async (authToken) => {
-              await t.set('member', 'private', 'trelloToken', authToken);
-              console.log('Authorization success!', authToken);
-            })
-            .catch(err => {
-              console.error('Authorization failed:', err);
-            });
+            const appKey = 'f8da03ef4e7b8f8ed708470a3680fab2';
+            const appName = 'IEEECOTOOL';
+            const secret = PostMessageIO.randomId();
+            const returnUrl = encodeURIComponent('https://relative-due-date.idi.ntnu.no/authorize.html#secret=' + secret);
+
+            const oauthUrl =
+              `https://trello.com/1/authorize?` +
+              `expiration=never&` +
+              `name=${encodeURIComponent(appName)}&` +
+              `scope=read,write&` +
+              `key=${appKey}&` +
+              `callback_method=postMessage&` +
+              `return_url=${returnUrl}`;
+
+            // Open OAuth popup
+            window.open(oauthUrl, 'Trello OAuth', 'width=600,height=600');
           }
         }
       ];
     }
   },
 
-  'board-buttons': async function(t) {
-    const token = await t.get('member', 'private', 'trelloToken');
-    if (token) {
-      // User is authorized
-      return [
-        { text: 'Help', callback: openDocumentation },
-        { text: 'CIS Timeline', callback: openTimeline }
-      ];
-    } else {
-      // User is not authorized
-      return [
-        {
-          text: 'Authorize Power-Up',
-          callback: function(t) {
-            // Open Trello OAuth directly, redirect to our authorize.html
-            return t.authorize(
-              function(secret) {
-                const redirectUri = encodeURIComponent(
-                  'https://relative-due-date.idi.ntnu.no/authorize.html'
-                );
-                return `https://trello.com/1/authorize` +
-                  `?expiration=never` +
-                  `&name=${encodeURIComponent(appName)}` +
-                  `&scope=read,write` +
-                  `&key=${appKey}` +
-                  `&callback_method=postMessage` +
-                  `&return_url=${redirectUri}` +
-                  `&secret=${secret}`;
-              },
-              {
-                type: 'popup',
-                title: 'Authorize Power-Up',
-                height: 600
-              }
-            )
-            .then(async (authToken) => {
-              await t.set('member', 'private', 'trelloToken', authToken);
-              console.log('Authorization success!', authToken);
-            })
-            .catch(err => {
-              console.error('Authorization failed:', err);
-            });
-          }
+'card-buttons': async function(t) {
+  const token = await t.get('member', 'private', 'trelloToken');
+  if (token) {
+    return [
+      { text: 'Relative due date', callback: openPopup },
+      { text: 'CIS Timeline', callback: openTimeline }
+    ];
+  } else {
+    return [
+      {
+        text: 'Authorize Power-Up',
+        callback: function(t) {
+          const appKey = 'f8da03ef4e7b8f8ed708470a3680fab2';
+          const appName = 'IEEECOTOOL';
+          const secret = PostMessageIO.randomId();
+          const returnUrl = encodeURIComponent('https://relative-due-date.idi.ntnu.no/authorize.html#secret=' + secret);
+
+          const oauthUrl =
+            `https://trello.com/1/authorize?` +
+            `expiration=never&` +
+            `name=${encodeURIComponent(appName)}&` +
+            `scope=read,write&` +
+            `key=${appKey}&` +
+            `callback_method=postMessage&` +
+            `return_url=${returnUrl}`;
+
+          // Open OAuth popup
+          window.open(oauthUrl, 'Trello OAuth', 'width=600,height=600');
         }
-      ];
-    }
-  },
+      }
+    ];
+  }
+},
+
 
   'card-detail-badges': async (t, opts) => {
     const card = await t.card('all')
