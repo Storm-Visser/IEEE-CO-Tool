@@ -11,7 +11,8 @@ const secret = window.location.hash.replace('#secret=', '');
 
 t.render(() => {
   window.addEventListener('message', async (event) => {
-    const token = event.data?.token;
+    const token = event.data && event.data.token;
+
     if (token) {
       // Save token to member storage
       await t.set('member', 'private', 'trelloToken', token);
