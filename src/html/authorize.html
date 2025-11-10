@@ -1,3 +1,6 @@
+<!-- DEPRECATED -->
+ <!-- New auth flow will go directlty to trello auth popup -->
+
 <!doctype html><!---Trello powerup authorisation interface --> 
 <html lang=en>
   <head>
@@ -20,27 +23,43 @@
 
       console.log('Trello iframe initialized:', t);
 
-      t.render(function () {
-        document.getElementById('btn').addEventListener('click', function () {
-          t.authorize({
-            type: 'popup',
-            name: 'IEEE Power-Up',
-            scope: { read: true, write: true },
-            expiration: 'never',
-            appKey: appKey,
-            returnUrl: window.location.href
-          })
-          .then(async (authToken) => {
-            await t.set('member', 'private', 'trelloToken', authToken);
-            alert('Success!');
-            window.authorize(authToken)
-            t.closePopup();
-          })
-          .catch(err => {
-            console.error('Authorize failed:', err);
-          });
-        });
+      document.getElementById('btn').addEventListener('click', async () => {
+        try {
+          const OAuthToken = await TrelloOAuth();
+          window.authorize(OAuthToken);
+          t.closePopup();
+        } catch (err) {
+          console.error('OAuth failed:', err);
+          alert('Authorization failed');
+        }
       });
+
+      //implement
+      function TrelloOAuth () {
+        return "dummytoken"
+      }
+
+      // t.render(function () {
+      //   document.getElementById('btn').addEventListener('click', function () {
+      //     t.authorize({
+      //       type: 'popup',
+      //       name: 'IEEE Power-Up',
+      //       scope: { read: true, write: true },
+      //       expiration: 'never',
+      //       appKey: appKey,
+      //       returnUrl: window.location.href
+      //     })
+      //     .then(async (authToken) => {
+      //       await t.set('member', 'private', 'trelloToken', authToken);
+      //       alert('Success!');
+      //       window.authorize(authToken)
+      //       t.closePopup();
+      //     })
+      //     .catch(err => {
+      //       console.error('Authorize failed:', err);
+      //     });
+      //   });
+      // });
     </script>
   </body>
 </html>

@@ -150,15 +150,28 @@ window.TrelloPowerUp.initialize({
           callback: function(t) {
             return t.authorize(
               function(secret) {
-                return t.signUrl('https://relative-due-date.idi.ntnu.no/authorize.html#secret=' + secret);
+                return 'https://trello.com/1/authorize' +
+                  '?expiration=never' +
+                  '&name=' + encodeURIComponent(appName) +
+                  '&scope=read,write' +
+                  '&key=' + appKey +
+                  '&callback_method=postMessage' +
+                  '&return_url=' + encodeURIComponent(window.location.href) +
+                  '&secret=' + secret;
               },
               {
                 type: 'popup',
                 title: 'Authorize Power-Up',
-                height: 140,
-                returnUrl: window.location.href
+                height: 600
               }
-            );
+            )
+            .then(async (authToken) => {
+              await t.set('member', 'private', 'trelloToken', authToken);
+              console.log('Authorization success!', authToken);
+            })
+            .catch(err => {
+              console.error('Authorization failed:', err);
+            });
           }
         }
       ];
@@ -181,15 +194,28 @@ window.TrelloPowerUp.initialize({
           callback: function(t) {
             return t.authorize(
               function(secret) {
-                return t.signUrl('https://relative-due-date.idi.ntnu.no/authorize.html#secret=' + secret);
+                return 'https://trello.com/1/authorize' +
+                  '?expiration=never' +
+                  '&name=' + encodeURIComponent(appName) +
+                  '&scope=read,write' +
+                  '&key=' + appKey +
+                  '&callback_method=postMessage' +
+                  '&return_url=' + encodeURIComponent(window.location.href) +
+                  '&secret=' + secret;
               },
               {
                 type: 'popup',
                 title: 'Authorize Power-Up',
-                height: 140,
-                returnUrl: window.location.href
+                height: 600
               }
-            );
+            )
+            .then(async (authToken) => {
+              await t.set('member', 'private', 'trelloToken', authToken);
+              console.log('Authorization success!', authToken);
+            })
+            .catch(err => {
+              console.error('Authorization failed:', err);
+            });
           }
         }
       ];
