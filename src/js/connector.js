@@ -151,7 +151,7 @@ window.TrelloPowerUp.initialize({
         text: 'Authorize Power-Up',
         callback: (t) => {
           window.open(
-            '/authorize.html', // path to your authorize.html
+            'https://relative-due-date.idi.ntnu.no/authorize.html',
             'Authorize Power-Up',
             'width=600,height=600'
           );
