@@ -1,52 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Authorize Power-Up</title>
-</head>
-<body>
-  <h2>Click to authorize Trello</h2>
-  <button id="btn">Authorize</button>
-
-  <script src="https://p.trellocdn.com/power-up.min.js"></script> 
+<html>
+  <head>
+    <script src="https://p.trellocdn.com/power-up.min.js"></script>
+    <link rel="stylesheet" href="https://p.trellocdn.com/power-up.min.css" />
+    <style>
+      select {
+        height: 30px;
+      }
+      * {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="content">
+      <p>We need you to authorize first!</p>
+      <button id="authorize" type="submit" class="mod-primary">Authorize</button>
+    </div>
+  </body>
   <script>
-    const appKey = 'f8da03ef4e7b8f8ed708470a3680fab2';
-    const appName = 'IEEECOTOOL';
+    let t = window.TrelloPowerUp.iframe();
 
-    const t = window.TrelloPowerUp.iframe({
-    appKey,
-    appName,
-    appAuthor: 'IEEE'
+    t.render(function () {
+      return t.sizeTo("#content");
     });
 
-    document.getElementById('btn').addEventListener('click', () => {
-    const oauthUrl =
-        `https://trello.com/1/authorize?` +
-        `expiration=never&` +
-        `name=${encodeURIComponent(appName)}&` +
-        `scope=read,write&` +
-        `key=${appKey}&` +
-        `callback_method=postMessage&` +
-        `return_url=${encodeURIComponent(window.location.href)}`;
+    const returnUrl = encodeURIComponent('https://relative-due-date.idi.ntnu.no/authorize.html');
+    
+    let oauthUrl = `https://trello.com/1/authorize?` +
+                    `expiration=never&` +
+                    `scope=read,write&` +
+                    `key=${appKey}&` +
+                    `callback_method=fragment&` +
+                    `return_url=${returnUrl}`;
 
-    const oauthWindow = window.open(oauthUrl, 'Trello OAuth', 'width=600,height=600');
-
-    window.addEventListener('message', async (event) => {
-        if (event.origin !== window.location.origin) return;
-        const token = event.data && event.data.token;
-        if (token) {
-        await t.set('member', 'private', 'trelloToken', token);
-
-        if (window.opener && window.opener.t) {
-            await window.opener.t.set('member', 'private', 'trelloToken', token);
-        }
-
-        alert('Authorization successful!');
-        oauthWindow.close();
-        window.close();
-        }
-    }, false);
+    let authBtn = document.getElementById("authorize");
+    authBtn.addEventListener("click", function () {
+      t.authorize(oauthUrl)
+        .then(function (token) {
+          return t.set("member", "private", "authToken", token);
+        })
+        .then(function () {
+          return t.closePopup();
+        });
     });
   </script>
-</body>
 </html>
