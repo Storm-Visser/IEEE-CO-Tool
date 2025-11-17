@@ -55,13 +55,13 @@ window.TrelloPowerUp.initialize({
 
   'board-buttons': async function(t) {
     const token = await t.get('member', 'private', 'trelloToken');
-    const returnUrl = encodeURIComponent('https://relative-due-date.idi.ntnu.no/authorize.html');
-    const AuthURL = `https://trello.com/1/authorize?` +
-                    `expiration=never&` +
-                    `scope=read,write&` +
-                    `key=${appKey}&` +
-                    `callback_method=fragment&` +
-                    `return_url=${returnUrl}`;
+    // const returnUrl = encodeURIComponent('https://relative-due-date.idi.ntnu.no/authorize.html');
+    // const AuthURL = `https://trello.com/1/authorize?` +
+    //                 `expiration=never&` +
+    //                 `scope=read,write&` +
+    //                 `key=${appKey}&` +
+    //                 `callback_method=fragment&` +
+    //                 `return_url=${returnUrl}`;
     if (token) {
       // User already authorized
       return [
