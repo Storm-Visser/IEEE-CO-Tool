@@ -72,16 +72,16 @@ window.TrelloPowerUp.initialize({
       // User not authorized → authorize
       return [
         {
-          text: 'Authorize Power-Up',
-          callback: function(t) {
-            return t.authorize(AuthURL)
-            .then(function (token) {
-              return t.set("organization", "private", "token", token).catch(t.NotHandled, function () {
-                // fall back to storing at board level
-                return t.set("board", "private", "token", token);
-              });
-            })
-          }
+          // text: 'Authorize Power-Up',
+          // callback: function(t) {
+          //   return t.authorize(AuthURL)
+          //   .then(function (token) {
+          //     return t.set("organization", "private", "token", token).catch(t.NotHandled, function () {
+          //       // fall back to storing at board level
+          //       return t.set("board", "private", "token", token);
+          //     });
+          //   })
+          // }
         }
       ];
     }
@@ -94,51 +94,51 @@ window.TrelloPowerUp.initialize({
       return [
         { text: 'Relative due date', callback: openPopup },
         { text: 'CIS Timeline', callback: openTimeline }
-      ];
-    } else {
-      return [
-        {
-          text: 'Authorize Power-Up',
-          callback: function(t) {
-            const appKey = 'f8da03ef4e7b8f8ed708470a3680fab2';
-            const appName = 'IEEECOTOOL';
+      ];}
+    // } else {
+    //   return [
+    //     {
+    //       text: 'Authorize Power-Up',
+    //       callback: function(t) {
+    //         const appKey = 'f8da03ef4e7b8f8ed708470a3680fab2';
+    //         const appName = 'IEEECOTOOL';
             
-            const returnUrl = encodeURIComponent('https://relative-due-date.idi.ntnu.no/authorize.html');
+    //         const returnUrl = encodeURIComponent('https://relative-due-date.idi.ntnu.no/authorize.html');
 
-            const oauthUrl =
-              `https://trello.com/1/authorize?` +
-              `expiration=never&` +
-              `name=${encodeURIComponent(appName)}&` +
-              `scope=read,write&` +
-              `key=${appKey}&` +
-              `callback_method=postMessage&` +
-              `return_url=${returnUrl}`;
+    //         const oauthUrl =
+    //           `https://trello.com/1/authorize?` +
+    //           `expiration=never&` +
+    //           `name=${encodeURIComponent(appName)}&` +
+    //           `scope=read,write&` +
+    //           `key=${appKey}&` +
+    //           `callback_method=postMessage&` +
+    //           `return_url=${returnUrl}`;
 
-            window.addEventListener('message', async (event) => {
-              // Make sure the message is coming from Trello
-              if (event.origin !== 'https://relative-due-date.idi.ntnu.no') return;
+    //         window.addEventListener('message', async (event) => {
+    //           // Make sure the message is coming from Trello
+    //           if (event.origin !== 'https://relative-due-date.idi.ntnu.no') return;
 
-              const token = event.data; // Trello sends the token as the message
-              if (token) {
-                const t = window.TrelloPowerUp.iframe({
-                  appKey: appKey,
-                  appName: appName,
-                  appAuthor: 'IEEE'
-                });
+    //           const token = event.data; // Trello sends the token as the message
+    //           if (token) {
+    //             const t = window.TrelloPowerUp.iframe({
+    //               appKey: appKey,
+    //               appName: appName,
+    //               appAuthor: 'IEEE'
+    //             });
 
-                // Save the token in member storage
-                await t.set('member', 'private', 'trelloToken', token);
+    //             // Save the token in member storage
+    //             await t.set('member', 'private', 'trelloToken', token);
 
-                alert('Authorization successful!');
-              }
-            }, false);
+    //             alert('Authorization successful!');
+    //           }
+    //         }, false);
 
-            // Open OAuth popup
-            window.open(oauthUrl, 'Trello OAuth', 'width=600,height=600');
-          }
-        }
-      ];
-    }
+    //         // Open OAuth popup
+    //         window.open(oauthUrl, 'Trello OAuth', 'width=600,height=600');
+    //       }
+    //     }
+    //   ];
+    // }
   },
 
 
