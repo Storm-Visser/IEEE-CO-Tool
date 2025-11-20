@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<head>
+    <script src="https://p.trellocdn.com/power-up.min.js"></script>
+</head>
+<body>
+    <h2>Authorization in progress, please wait</h2>
+</body>
+<script>
+    let authorize;
+
+    try {
+    if (window.opener && typeof window.opener.authorize === "function") {
+        authorize = window.opener.authorize;
+    }
+    } catch (e) {
+        // Security settings are preventing this, fall back to local storage.
+    }
+
+    // Trello auth puts the token in the hash if callback_method=fragment.
+    const token = window.location?.hash;
+    if (authorize && token) {
+        authorize(token);
+    } else {
+        localStorage.setItem("token", token);
+    }
+
+    setTimeout(function () {
+        window.close();
+    }, 1000);
+</script>
