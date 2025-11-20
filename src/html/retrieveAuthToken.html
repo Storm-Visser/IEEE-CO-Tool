@@ -17,7 +17,7 @@
     }
 
     // Trello auth puts the token in the hash if callback_method=fragment.
-    const token = window.location?.hash;
+    const token = window.location && window.location.hash;
     if (authorize && token) {
         authorize(token);
     } else {
