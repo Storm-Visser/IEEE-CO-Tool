@@ -97,10 +97,10 @@ window.TrelloPowerUp.initialize({
     const list = await t.list('name')
     if (list){
       if (list.name === 'IEEE CIS Rules Summary') { 
-        await verifyRules(t, card, list)
+        await verifyRules(t, card, list, token)
       }
     } else {
-      console.log("list not found", { card, board, t, token })
+      console.log("list not found")
     }
     
     
