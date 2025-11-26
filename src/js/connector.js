@@ -71,8 +71,7 @@ window.TrelloPowerUp.initialize({
       });
     }
   },
-
-
+  
   'card-buttons': async function(t) {
     const token = await t.get('member', 'private', 'authToken');
     console.log(t)

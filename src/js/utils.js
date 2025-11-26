@@ -5,7 +5,7 @@ const axios = require('axios')
 
 //card rules (not updating)
 export const verifyRules = async (t, card, list) => {
-	const token = await t.getRestApi().getToken()
+	const token = await t.get('member', 'private', 'authToken');
 	const response = await axios({
 		method: 'GET',
 		url: `${BASE_URL}cards/${card.id}/checklists?key=${appKey}&token=${token}`
