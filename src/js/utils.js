@@ -4,10 +4,9 @@ const {appName} = require('./constants')
 const axios = require('axios')
 
 //card rules (not updating)
-export const verifyRules = async (t, card, list, rawToken) => {
-	console.log('Token:', rawToken);
+export const verifyRules = async (t, card, list) => {
+	const rawToken = await t.get('member', 'private', 'authToken');
 	const token = rawToken.replace(/^#token=/, '');
-	console.log('Token:', token);
 	const response = await axios({
 		method: 'GET',
 		url: `${BASE_URL}cards/${card.id}/checklists?key=${appKey}&token=${token}`

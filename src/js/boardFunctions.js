@@ -25,7 +25,8 @@ export const checkBoard = async (t, opts) => {
 					due_date: card.due_date
 				}
 			})		
-			const token = await t.get('member', 'private', 'authToken');
+			const rawToken = await t.get('member', 'private', 'authToken');
+			const token = rawToken.replace(/^#token=/, '');
 			await updateChildren(card, relativeCards, token)
 		}
 	})

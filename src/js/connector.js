@@ -91,13 +91,12 @@ window.TrelloPowerUp.initialize({
 
 
   'card-detail-badges': async function (t) {
-    const token = await t.get('member', 'private', 'authToken');
     const card = await t.card('all')
     const board = await t.board('all')
     const list = await t.list('name')
     if (list){
       if (list.name === 'IEEE CIS Rules Summary') { 
-        await verifyRules(t, card, list, token)
+        await verifyRules(t, card, list)
       }
     } else {
       console.log("list not found")
