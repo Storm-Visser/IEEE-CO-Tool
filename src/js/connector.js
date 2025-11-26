@@ -71,10 +71,9 @@ window.TrelloPowerUp.initialize({
       });
     }
   },
-  
+
   'card-buttons': async function(t) {
     const token = await t.get('member', 'private', 'authToken');
-    console.log(t)
     if (token) {
       return [
         { text: 'Relative due date', callback: openPopup },
@@ -91,7 +90,7 @@ window.TrelloPowerUp.initialize({
   },
 
 
-  'card-detail-badges': async (t, opts) => {
+  'card-detail-badges': async function (t) {
     const card = await t.card('all')
     const board = await t.board('all')
     const list = await t.list('name')
