@@ -91,26 +91,26 @@ window.TrelloPowerUp.initialize({
 
 
   'card-detail-badges': async function (t) {
-    return t.card('all').then(async card => {
-      const board = await t.board('all')
-      const list = await t.list('name')
-      if (list){
-        if (list.name === 'IEEE CIS Rules Summary') { 
-          await verifyRules(t, card, list)
-        }
-      } else {
-        console.log("list not found", { card, board, t })
+    const token = await t.get('member', 'private', 'authToken');
+    const card = await t.card('all')
+    const board = await t.board('all')
+    const list = await t.list('name')
+    if (list){
+      if (list.name === 'IEEE CIS Rules Summary') { 
+        await verifyRules(t, card, list)
       }
-      
-      
-      const response = await axios(`/getcard?cardid=${card.id}&boardid=${board.id}`)
-      const relativeCard = response.data.card
-      if(relativeCard && relativeCard.parent) {
-        return [{ title: 'Parent', text: generateBadgeText(relativeCard) }]
-      } else {
-        console.log("card not found", { card, board, t })
-      }
-    });
+    } else {
+      console.log("list not found", { card, board, t, token })
+    }
+    
+    
+    const response = await axios(`/getcard?cardid=${card.id}&boardid=${board.id}`)
+    const relativeCard = response.data.card
+    if(relativeCard && relativeCard.parent) {
+      return [{ title: 'Parent', text: generateBadgeText(relativeCard) }]
+    } else {
+      console.log("card not found", { card, board, t })
+    }
   }
 }, {
   appKey: appKey,
