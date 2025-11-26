@@ -61,7 +61,7 @@ export const verifyCard = async (t) => {
         boardId: board.id
       }
     })
-    const token = await t.getRestApi().getToken()
+    const token = await t.get('member', 'private', 'authToken');
 
     const relativeBoard = await axios({
       url: `/getboard?boardid=${board.id}`

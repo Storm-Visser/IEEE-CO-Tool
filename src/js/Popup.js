@@ -101,7 +101,7 @@ const Popup = (props) => {
 	const canSetDate = () => !(selectedParent)
 
 	const setRelativeDueDate = async () => {
-		const token = await t.getRestApi().getToken()
+		const token = await t.get('member', 'private', 'authToken');
 		const board = await t.board('id')
 		const boardId = board.id
 		const response = await axios({
