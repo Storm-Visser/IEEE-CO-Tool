@@ -59,7 +59,7 @@ const Popup = (props) => {
 	const ref = useRef(null)
 	const [cards, setCards] = useState([])
 	const [currentCard, setCurrentCard] = useState(null)
-  const [relativeCard, setRelativeCard] = useState(null)
+  	const [relativeCard, setRelativeCard] = useState(null)
 	const [selectedParent, setSelectedParent] = useState(null)
 	const [loading, setLoading] = useState(false)
 	const [difference, setDifference] = useState(0)

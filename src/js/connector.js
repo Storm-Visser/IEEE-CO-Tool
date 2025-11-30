@@ -88,7 +88,15 @@ window.TrelloPowerUp.initialize({
       });
     }
   },
-
+  'card-badges': verifyCard,
+  
+  'on-enable': (t, opts) => {
+    return t.modal({
+      url: './popup.html',
+      height: 500,
+      title: 'Welcome to the Trello template for IEEE Conferences'
+    })
+  },
 
   'card-detail-badges': async function (t) {
     const card = await t.card('all')
