@@ -1,4 +1,4 @@
-import { queueTrelloRequest } from "./trelloQueue";
+import { queueTrelloRequest } from "./trelloApiQueue";
 const {updateChildren } = require('./boardFunctions')
 const {BASE_URL} = require('./constants')
 const {appKey} = require('./constants')

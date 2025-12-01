@@ -4,7 +4,7 @@ import moment from 'moment'
 import styled from 'styled-components'
 import TimelineSidebar from './TimelineSidebar'
 import CardTimeline from './CardTimeline'
-import { queueTrelloRequest } from "./trelloQueue";
+import { queueTrelloRequest } from "./trelloApiQueue";
 const {BASE_URL} = require('./constants')
 const {appKey} = require('./constants')
 const {appName} = require('./constants')

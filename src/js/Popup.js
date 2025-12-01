@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react'
 import ReactDOM from 'react-dom'
 import { updateChildren } from './boardFunctions'
-import { queueTrelloRequest } from "./trelloQueue";
+import { queueTrelloRequest } from "./trelloApiQueue";
 import styled from 'styled-components'
 const {BASE_URL} = require('./constants')
 const {appKey} = require('./constants')

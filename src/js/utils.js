@@ -1,7 +1,7 @@
 const {BASE_URL} = require('./constants')
 const {appKey} = require('./constants')
 const {appName} = require('./constants')
-import { queueTrelloRequest } from "./trelloQueue";
+import { queueTrelloRequest } from "./trelloApiQueue";
 
 //card rules (not updating)
 export const verifyRules = async (t, card, list) => {
