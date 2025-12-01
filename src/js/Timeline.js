@@ -4,7 +4,7 @@ import moment from 'moment'
 import styled from 'styled-components'
 import TimelineSidebar from './TimelineSidebar'
 import CardTimeline from './CardTimeline'
-import { queueTrelloRequest } from "./trelloApiQueue";
+import axios from 'axios'
 const {BASE_URL} = require('./constants')
 const {appKey} = require('./constants')
 const {appName} = require('./constants')
@@ -52,7 +52,7 @@ const Timeline = (props) => {
 			setBoard(b)
 			const l = await t.lists('all')
 			const filteredList = l.filter(list => !ignoreList.includes(list.name))
-			const relCards = await queueTrelloRequest({
+			const relCards = await axios({
 				method: 'GET',
 				url: `/getboard?boardid=${b.id}`
 			})

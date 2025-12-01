@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { updateChildren } from './boardFunctions'
 import { queueTrelloRequest } from "./trelloApiQueue";
 import styled from 'styled-components'
+import axios from 'axios';
 const {BASE_URL} = require('./constants')
 const {appKey} = require('./constants')
 const {appName} = require('./constants')
@@ -75,7 +76,7 @@ const Popup = (props) => {
 			const board = await t.board('all')
 			setCurrentCard(myCard)
 			setCards(boardCards.filter(card => card.id !== myCard.id ))
-      const relativeCard = await queueTrelloRequest({
+      const relativeCard = await axios({
         url: `/getcard?cardid=${myCard.id}&boardid=${board.id}`
       })
       setRelativeCard(relativeCard.data.card)
@@ -105,7 +106,7 @@ const Popup = (props) => {
 		const token = rawToken.replace(/^#token=/, '');
 		const board = await t.board('id')
 		const boardId = board.id
-		const response = await queueTrelloRequest({
+		const response = await axios({
 			method: 'POST',
 			url: '/addparent',
 			data: {
@@ -118,7 +119,7 @@ const Popup = (props) => {
 		})
 		const { card } = response.data
 		
-		const relativeBoard = await queueTrelloRequest({
+		const relativeBoard = await axios({
 			url: `/getboard?boardid=${boardId}`
 		})
 		await queueTrelloRequest({
@@ -131,7 +132,7 @@ const Popup = (props) => {
 
 	const removeParent = async () => {
 		const board = await t.board('id')
-		const newCard = await queueTrelloRequest({
+		const newCard = await axios({
 			method: 'PUT',
 			url: '/removeparent',
 			data: {
