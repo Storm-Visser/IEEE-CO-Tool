@@ -1,4 +1,4 @@
-const axios = require('axios')
+import { queueTrelloRequest } from "./trelloQueue";
 const GRAY_ICON = 'https://cdn.hyperdev.com/us-east-1%3A3d31b21c-01a0-4da2-8827-4bc6e88b7618%2Ficon-gray.svg'
 const {BASE_URL} = require('./constants')
 const {appKey} = require('./constants')
@@ -111,7 +111,7 @@ window.TrelloPowerUp.initialize({
     }
     
     
-    const response = await axios(`/getcard?cardid=${card.id}&boardid=${board.id}`)
+    const response = await queueTrelloRequest(`/getcard?cardid=${card.id}&boardid=${board.id}`)
     const relativeCard = response.data.card
     if(relativeCard && relativeCard.parent) {
       return [{ title: 'Parent', text: generateBadgeText(relativeCard) }]

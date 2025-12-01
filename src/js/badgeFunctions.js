@@ -1,4 +1,4 @@
-const axios = require('axios')
+import { queueTrelloRequest } from "./trelloQueue";
 const {updateChildren } = require('./boardFunctions')
 const {BASE_URL} = require('./constants')
 const {appKey} = require('./constants')
@@ -15,14 +15,14 @@ export const verifyCard = async (t) => {
   const list = await t.list('name')
   const board = await t.board('id')
   const listName = list.name
-  const cardMetadata = await axios({
+  const cardMetadata = await queueTrelloRequest({
     url: `/getcard?cardid=${trelloCard.id}&boardid=${board.id}`
   })
   let relativeCard = cardMetadata.data.card
   if(!relativeCard) {
     const labels = trelloCard.labels.map(label => label.name)
     const description = trelloCard.desc
-    relativeCard = await axios({
+    relativeCard = await queueTrelloRequest({
       method: 'PUT',
       url: '/addcard',
       data: {
@@ -41,7 +41,7 @@ export const verifyCard = async (t) => {
   if(trelloCard.due !== relativeCard.due_date) {
     if(relativeCard.parent){
       const {cardId, due_date, boardId} = relativeCard
-      await axios({
+      await queueTrelloRequest({
         url: `/removeparent`,
         method: 'PUT',
         data: {
@@ -52,7 +52,7 @@ export const verifyCard = async (t) => {
       return
     }
     relativeCard.due_date = trelloCard.due
-    await axios({
+    await queueTrelloRequest({
       method: 'POST',
       url: '/updatedate',
       data: {
@@ -65,7 +65,7 @@ export const verifyCard = async (t) => {
     const rawToken = await t.get('member', 'private', 'authToken');
 	  const token = rawToken.replace(/^#token=/, '');
 
-    const relativeBoard = await axios({
+    const relativeBoard = await queueTrelloRequest({
       url: `/getboard?boardid=${board.id}`
     })
     const relativeCards = relativeBoard.data.board
@@ -73,7 +73,7 @@ export const verifyCard = async (t) => {
   }
 
   if(trelloCard.name !== relativeCard.cardName) {
-    relativeCard = await axios({
+    relativeCard = await queueTrelloRequest({
       method: 'POST',
       url: '/updatename',
       data: {
@@ -85,7 +85,7 @@ export const verifyCard = async (t) => {
   }
   const labels = trelloCard.labels.map(label => label.name)
   if(JSON.stringify(labels) !== JSON.stringify(relativeCard.labels)) {
-    relativeCard = await axios({
+    relativeCard = await queueTrelloRequest({
       method: 'POST',
       url: '/updatelabels',
       data: {
@@ -96,7 +96,7 @@ export const verifyCard = async (t) => {
     })
   }
   if(trelloCard.desc !== relativeCard.description) {
-    relativeCard = await axios({
+    relativeCard = await queueTrelloRequest({
       method: 'POST',
       url: '/updatedescription',
       data: {
@@ -107,7 +107,7 @@ export const verifyCard = async (t) => {
     })
 
     if(listName !== relativeCard.listName) {
-      relativeCard = await axios({
+      relativeCard = await queueTrelloRequest({
         method: 'POST',
         url: '/updatelist',
         data: {

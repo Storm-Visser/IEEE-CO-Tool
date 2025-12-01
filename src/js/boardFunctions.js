@@ -1,4 +1,4 @@
-const axios = require('axios')
+import { queueTrelloRequest } from "./trelloQueue";
 const {BASE_URL} = require('./constants')
 const {appKey} = require('./constants')
 const moment = require('moment')
@@ -6,7 +6,7 @@ const moment = require('moment')
 export const checkBoard = async (t, opts) => {
 	const trelloCards = await t.cards('all')
 	const boardId = await t.board('id')
-	const relativeBoard = await axios({
+	const relativeBoard = await queueTrelloRequest({
 		url: `/getboard?boardid=${boardId.id}`
 	}) 
 	const trelloIds = trelloCards.map(card => card.id)
@@ -17,7 +17,7 @@ export const checkBoard = async (t, opts) => {
 		const relativeTimestamp = Date.parse(card.due_date)
 		if(trelloTimestamp !== relativeTimestamp) {
 			card.due_date = trelloCard.due
-			await axios({
+			await queueTrelloRequest({
 				method: 'POST',
 				url: `/updatedate`,
 				data: {
@@ -53,7 +53,7 @@ export const updateChildren = async (currentCard, relativeCards, token) => {
 					else {childMoment = childMoment.toISOString()}
 					childCard.due_date = childMoment
 					const [relativeResponse, trelloResponse] = await Promise.all([
-						axios({
+						queueTrelloRequest({
 							method: 'POST',
 							url: '/updatedate',
 							data: {
@@ -62,7 +62,7 @@ export const updateChildren = async (currentCard, relativeCards, token) => {
 								due_date: childMoment
 							}
 						}),
-						axios({
+						queueTrelloRequest({
 							method: 'PUT',
 							url: `${BASE_URL}cards/${childCard.cardId}?key=${appKey}&token=${token}&due=${childMoment}`
 						})
