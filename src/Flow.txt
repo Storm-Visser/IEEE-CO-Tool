@@ -1,0 +1,45 @@
+Server starts DB, Logger, and API
+These things allow for a local backup of data, which is why everything worked untill it was wiped
+would be nice too see things in the log files, but they were probably cleared as well
+
+Client side is where the problem is
+Index.html starts everything up
+Connector.js connects all of the parts, including a button to authorize the powerup.
+Authorize.html is where the client side wants access to trello, to read and write on the board.
+This is where the problem likely is
+
+All other files have nothing to do with authorization, but will still need refractor/removal for deprecated stuff (maybe a deprecated folder?) 
+CardTimeline
+    This contains stuff for the cards on timeline, might need to be removed in favor of trellos own timeline
+Boardfunction
+    Keeps track of a local (our database) relative timeline synced with card due database
+    It gets the saved version of the board, and updates out of sync cards and their children on both boards (trello and saved in DB)
+Badgefunction
+    For individual cards    
+    Shows a badge with a relative date to something (UI)
+    If one card changes, syncs everything with backend and all children
+    Makes me wonder is the whole board update is required if all children are properly updated each time...
+DateFunction
+    Subscribe to a .ics calender thing if they want
+Markdown
+    Renders .md in .html, might not work properly, and might be unnececary
+Popup
+    Lets user set relative due date by selecting a parent and time difference
+    Can also remove parent
+    Triggers an update for everything
+Timeline 
+    Stuff for the actual calender view, also deprecated?
+TimelineSidebar
+    sidebar for the timeline, also deprecated?
+Utils
+    Only updates cards in the rules list (first one)
+    Gets the current checklist 
+    Find the list(s) that match the current card
+    Delete things that are not in the cards in the list(s)
+    If a card in the list(s) contains a "IEEE CIS Requirements", it sysncs those requirements to the original card
+    Also creates a new one if nececary
+
+
+
+
+

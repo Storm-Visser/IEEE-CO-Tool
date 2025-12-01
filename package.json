@@ -1,0 +1,55 @@
+{
+  "name": "trello-relative-due-date",
+  "version": "1.0.1",
+  "description": "Relative due date power-up for trello",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rimraf ./dist && rimraf ./cache && parcel build src/html/*.html --out-dir ./dist",
+    "start:client": "parcel src/html/*.html",
+    "start": "node server/src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Storm-Visser/IEEE-CO-Tool.git"
+  },
+  "author": "IEEE",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Storm-Visser/IEEE-CO-Tool.git/issues"
+  },
+  "homepage": "https://github.com/Storm-Visser/IEEE-CO-Tool.git#readme",
+  "dependencies": {
+    "axios": "^0.21.4",
+    "babel": "^6.23.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "express": "^4.17.1",
+    "file-saver": "^2.0.5",
+    "ics": "^2.27.0",
+    "immutable-ics": "^0.4.0",
+    "markdown-it": "^12.0.6",
+    "marked": "^2.0.1",
+    "moment": "^2.29.1",
+    "mongoose": "^5.12.3",
+    "oauth": "^0.9.15",
+    "oauth-1.0a": "^2.2.6",
+    "parcel-bundler": "^1.12.5",
+    "promise-queue": "^2.2.5",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "rimraf": "^3.0.2",
+    "styled-components": "^5.2.3",
+    "url": "^0.11.0",
+    "winston": "^3.3.3"
+  },
+  "browserslist": [
+    "last 2 Chrome versions"
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.13.14",
+    "@babel/plugin-proposal-decorators": "^7.13.5"
+  }
+}

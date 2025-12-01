@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="https://p.trellocdn.com/power-up.css" />
+  </head>
+  <body>
+    <script src="https://p.trellocdn.com/power-up.min.js" crossorigin="anonymous"></script>
+	<div id='root' style="
+	 	display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: 100%;
+	">
+		<div style="
+			margin: 1em 0 1em 0;
+			max-width: 800px;
+			width: 80%;
+			padding: 1.5em;
+		border-radius: 5px;
+		border: 1px solid lightgray;
+		">
+			<h1 style="
+			padding-top: 20px;
+    width: 100%;
+    border-bottom: 1px solid lightgray;
+    padding-bottom: .3rem;
+			">Table of contents</h1>
+			<ul style="
+				padding-left: 1em;
+			">
+				<li><a href="#setup">Setup Trello board</a></li>
+				<li><a href="#introduction">Introduction to Trello</a></li>
+				<li><a href="#addmembers">Add Members</a></li>
+				<li><a href="#roles">Assigning Roles</a></li>
+				<li><a href="#labels">Labels</a></li>
+				<li><a href="#filtering">Filtering cards</a></li>
+				<!-- <li><a href="#power-up">Using Trello Power-up</a></li>
+				<li><a href="#timeline">Timeline</a></li>
+				<li><a href="#calendar">Calendar</a></li> -->
+			</ul>
+			<h2 style="padding-top: 20px;
+    width: 100%;
+    border-bottom: 1px solid lightgray;
+    padding-bottom: .3rem;" id="introduction">Setup Trello Board</h2>
+			<p>
+				This Trello Board is used for 
+			</p>
+			<h2 style="padding-top: 20px;
+    width: 100%;
+    border-bottom: 1px solid lightgray;
+    padding-bottom: .3rem;" id="introduction">Introduction to Trello</h2>
+			<p>
+				Many of our IEEE CIS General Chairs have vast conference organization experience but may 
+				need fast access to the latest rules and updated information provided 
+				in this tool. Further, many of our General Chairs support bringing 
+				on our next generation of conference organisers (CO)s and this tool 
+				provides much of the hints and guidelines that our IEEE CIS COs have 
+				contributed to over the years. The tool also provides filtering of the
+				information for specific roles. 
+			</p>
+			<p>The default tool provides</p>
+		
+			<ul>
+				<li>
+					An accessible and searchable information source, with all activities listed under suitable themes,
+					 including hints and guidelines, IEEE CIS rules and links to further information. 
+				</li>
+				<li>
+					Relative dates. All activities include relative dates wrt key conference dates. 
+					The tool provides automatic conversion of such deadlines to actual calendar dates 
+					when the key conference dates are entered. 
+				</li>
+				<li>
+					Simplified information view due to the possibility to filter information shown (currently through Trello's own filtering system)
+				</li>
+				<li>
+			<!--		A detailed timeline view for all activities together with the possibility to filter information shown i.e. show
+					 only activity for a specific role(currently unavailable but filtering provides a similar view)
+				</li>
+				<li>
+					Option to include the entire timeline or role specific timeline in the users daily calendar. Each activity linking directly
+					back to the activity card in Trello. (currently unavailable
+				</li> -->
+			</ul>	
+
+			<p>
+			</p>
+			<div>
+				<h2 style="padding-top: 20px;
+    width: 100%;
+    border-bottom: 1px solid lightgray;
+    padding-bottom: .3rem;" id="addmembers">Adding members to board</h2>
+				<p>
+					Adding a new team member to a board is done by clicking the invite button in the 
+					board's toolbar or from the menu '...'. A member will be able to edit, comment and invite 
+					other people to the board. This allows your chairs to edit their activities, refine deadlines, add activities osv. 
+				</p>
+			</div>
+			<div>
+				<h2 style="padding-top: 20px;
+    width: 100%;
+    border-bottom: 1px solid lightgray;
+    padding-bottom: .3rem;" id="roles">Assigning Team Members to cards</h2>
+				<p>
+					Where more than one chair is involved in a particular role,they can assign a card to a specific peron, giving that 
+					team member a notification, if any updates are made to a card. 
+				</p>		
+			</div>
+			<h2 style="padding-top: 20px;
+    width: 100%;
+    border-bottom: 1px solid lightgray;
+    padding-bottom: .3rem;" id="labels">Labels</h2>
+			<p>
+				Each card has a label - indicating the Chair whose role covers leading  this activity. The may wish to assign a 
+				particular activity to a member with the same role or a different role but as the label bearer they are still 
+				responsible for following up this task. 
+			</p>
+			<h2 style="padding-top: 20px;
+    width: 100%;
+    border-bottom: 1px solid lightgray;
+    padding-bottom: .3rem;" id="filtering">Filtering cards</h2>
+			<p>
+				The simplest way to filter cards is to use Trello's filtering (3 lines on the top bar).
+				If filtering for a role then select label (the role), select collapse empty lists. 
+				All the tasks for that particular roles will be shown  
+			</p>
+			<h2 style="padding-top: 20px;
+    width: 100%;
+    border-bottom: 1px solid lightgray;
+    padding-bottom: .3rem;" id="power-up">Relative Due Date Power-Up</h2>
+			<p>
+				
+			We are currently experiencing new authorisation challenges with the powerup so further features currently not available 
+			are removed from this description. 
+			<!-- The relative due date power-up was created to allow a card's due date to be
+				dependent on another. If the parent card's due date changes, the original 
+				card's will also change. That way a General Chair only needs to set the due 
+				date of the conference's start date and all tentative dates will be set on 
+				the cards that are depending on that card. Almost all the cards in the IEEE 
+				CIS Conference Template will have a relative due date, but it is also possible 
+				to change som dependencies if that works better for conference planning. 
+			</p>
+			<h3>Adding a parent to card</h3>
+			<p>
+				Adding, changing or removing a parent card is easy. By clicking on the
+				<code>Relative Due Date</code> button inside the card (see image below).
+			</p>
+			<img src="../assets/relbutton.png" width="300"/>
+			<p>
+				This will open a popup in which you can search for the parent card. 
+				You can also remove a parent if applicable. 
+			</p>
+			<img src='../assets/popup.png' width='300'/>
+			<p>
+				By clicking one of the card names that appear, you will be prompted to define 
+				the difference between the parent card and the original card. The difference is 
+				how many months before or after the due date of the parent card, the original 
+				card's due date will be. If the parent card has a due date, the due date of the 
+				original card will change according to the difference set. If the original card 
+				has cards that are dependant on it, their due dates will also change.
+			</p>
+			<h3 id="timeline">Timeline</h3>
+			<p>
+				The IEEE CIS Conference Template can be a little overwhelming, and getting a general
+				timeline of when things happen can be hard by looking a the Kanban board.
+					Therefore, we created a timeline visualization of the cards on your board. 
+					The timeline can be opened by clicking the timeline button on the boards 
+					toolbar (see picture) or by clicking the timeline button inside a card. 
+			</p>
+			<img src='../assets/timelinebtn.png' width='500'>
+			<p>
+				The timeline can be grouped by week, month or quarterly depending on how compact 
+				you want the timeline too look. You can also define the different labels that 
+				are shown in the timeline by clicking the cehckboxes in the sidebar. 
+			</p>
+			<h3 id="calendar">Calendar</h3>
+			<p>
+				When the date for the conference has been set, a calendar file for the event can be 
+				downloaded for the conference. Inside the timeline, you will get the option to 
+				download an `ics` file that can be imported to your personal calendar containing 
+				the different cards on the board. If you only want the cards that are relevant for 
+				a specific label, you can check the boxes and then download the calendar.
+			</p>
+			<p>
+				If you want a calendar that is always up to date with the latest changes to the board, 
+				you can subscribe to the calendar by copying the url below the download button in 
+				the sidebar. 
+			</p>
+			<img src='../assets/cal.png' width='500'> -->
+		</div>
+
+	  </div>
+  </body>
+</html>
