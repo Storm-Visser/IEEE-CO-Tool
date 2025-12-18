@@ -16,6 +16,8 @@
 
 Many of our IEEE CIS Volunteers have vast conference organization experience but may need fast access to the latest rules and updated information, as well as having access to useful hints and guidelines for particular conference organisation activities. Further, support is needed for the important role that our conference organisers play in  training up our next generation of conference organisers.
 
+Important: Please make sure the CO-Tool is authorized by your Trello account, or it wont work. To authorize, click the rocket icon on the top right of the board, click settings below IEEECOTOOL, click “authorize”, and follow the instructions. If it says “Remove personal settings“, it is already authorized and ready for use.
+
 The default 2025 tool provides: 
 
 1. An accessible and searchable information source, with all activities listed under suitable themes, including hints and guidelines, IEEE CIS rules and links to further information. 
