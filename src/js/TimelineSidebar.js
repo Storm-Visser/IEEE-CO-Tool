@@ -5,6 +5,8 @@ import {saveAs} from 'file-saver'
 import {colors} from './constants'
 import { text } from 'body-parser'
 
+// Calender sidebar
+
 const SidebarContainer = styled.div`
 	box-sizing: border-box;
 	overflow-y: scroll;

@@ -1,10 +1,10 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-import {timelineModes, colors} from './constants'
+import { timelineModes, colors } from './constants'
 import moment from 'moment'
 import card from '../../server/src/models/card'
 
-//calender not prio
+//Stuff for the timeline
 const Container = styled.div`
 	display: flex;
 	width: 85%;
@@ -58,7 +58,7 @@ const diffs = {
 
 const relativeDiffs = {
 	monthly: (diff) => Math.floor(diff),
-	quarterly: (diff) => Math.floor(diff/3)
+	quarterly: (diff) => Math.floor(diff / 3)
 }
 
 const titleFunctions = {
@@ -81,38 +81,38 @@ const titleFunctions = {
 
 
 
-export const CardTimeline = ({cards, mode, collapsed, relativeCards, useRelativeDates}) => {
-	
+export const CardTimeline = ({ cards, mode, collapsed, relativeCards, useRelativeDates }) => {
+
 	const generateColumnsWithoutDueDates = (currentCard, columns, currentDiff, relativeCards, includeList) => {
 		const newDiff = currentDiff + currentCard.difference
 
 		const column = columns.find(col => col.difference === relativeDiffs[mode](newDiff))
-		if(!column && includeList.includes(currentCard.name)) {
+		if (!column && includeList.includes(currentCard.name)) {
 			const newColumn = {
 				difference: relativeDiffs[mode](newDiff),
 				cards: [currentCard],
 				name: titleFunctions[mode](relativeDiffs[mode](newDiff))
 			}
 			columns.push(newColumn)
-		} else if(includeList.includes(currentCard.name)) column.cards.push(currentCard)
-		if(currentCard.children.length === 0) {
+		} else if (includeList.includes(currentCard.name)) column.cards.push(currentCard)
+		if (currentCard.children.length === 0) {
 			return columns
 		}
 		currentCard.children.forEach(cardName => {
-			if(includeList.includes(cardName)) {
+			if (includeList.includes(cardName)) {
 				const childCard = cards.find(card => card.name === cardName)
-				if(childCard.parent === currentCard.name) {
+				if (childCard.parent === currentCard.name) {
 					columns = generateColumnsWithoutDueDates(childCard, columns, newDiff, relativeCards, includeList)
 				}
 			} else {
 				const childCard = relativeCards.find(card => card.cardName === cardName) || {}
-				if(childCard.parent === currentCard.name) {
+				if (childCard.parent === currentCard.name) {
 					childCard.name = cardName
 					columns = generateColumnsWithoutDueDates(childCard, columns, newDiff, relativeCards, includeList)
 				}
 			}
 		})
-		return columns.sort((a,b) => a.difference - b.difference)
+		return columns.sort((a, b) => a.difference - b.difference)
 	}
 
 	const generateColumnsWithDueDates = () => {
@@ -120,14 +120,14 @@ export const CardTimeline = ({cards, mode, collapsed, relativeCards, useRelative
 		const eventStart = cards.find(card => card.name === 'Event Start')
 		const eventStartMoment = moment(eventStart.due).utc()
 		let currentDiff = diffs[mode](moment(cards[0].due).utc(), eventStartMoment)
-		let currentCardIndex = 0 
+		let currentCardIndex = 0
 		let currentCardList = {
 			name: titleFunctions[mode](currentDiff),
 			cards: []
 		}
 
-		while(currentCardIndex !== cards.length) {
-			while(!moment(cards[currentCardIndex].due).utc().isSameOrBefore(modes[mode](currentDiff, eventStartMoment))){
+		while (currentCardIndex !== cards.length) {
+			while (!moment(cards[currentCardIndex].due).utc().isSameOrBefore(modes[mode](currentDiff, eventStartMoment))) {
 				columns.push(currentCardList)
 				currentDiff++
 				currentCardList = {
@@ -136,14 +136,14 @@ export const CardTimeline = ({cards, mode, collapsed, relativeCards, useRelative
 				}
 			}
 			currentCardList.cards.push(cards[currentCardIndex])
-			currentCardIndex ++
+			currentCardIndex++
 		}
 		columns.push(currentCardList)
-		columns = collapsed ? columns.filter(col => col.cards.length > 0): columns
-		return columns 
+		columns = collapsed ? columns.filter(col => col.cards.length > 0) : columns
+		return columns
 	}
 
-	const renderColumn = (column) => { 
+	const renderColumn = (column) => {
 		return (
 			<Column>
 				<ColumnHeader>
@@ -154,7 +154,7 @@ export const CardTimeline = ({cards, mode, collapsed, relativeCards, useRelative
 				{column.cards.map(card => {
 					const cardColor = colors[card.list] ? colors[card.list] : 'white'
 					return (
-						<a href={card.url} target='_blank' style={{width: '100%', textDecoration: 'none'}}>
+						<a href={card.url} target='_blank' style={{ width: '100%', textDecoration: 'none' }}>
 							<Card color={cardColor}>
 								<h3>{card.name}</h3>
 								{card.due && <p>Due: {new Date(card.due).toDateString()}</p>}
@@ -173,12 +173,12 @@ export const CardTimeline = ({cards, mode, collapsed, relativeCards, useRelative
 		eventStart.difference = 0
 		const includeList = cards.map(card => card.name)
 		columns = generateColumnsWithoutDueDates(eventStart, columns, 0, relativeCards, includeList)
-		if(!collapsed) {
+		if (!collapsed) {
 			const firstCol = columns[0].difference
 			const lastCol = columns[columns.length - 1].difference
-			for(let i = firstCol + 1 ; i <= lastCol; i++){
+			for (let i = firstCol + 1; i <= lastCol; i++) {
 				const column = columns.find(col => col.difference === i)
-				if(!column) {
+				if (!column) {
 					columns.push({
 						name: titleFunctions[mode](i),
 						cards: [],
@@ -186,12 +186,12 @@ export const CardTimeline = ({cards, mode, collapsed, relativeCards, useRelative
 					})
 				}
 			}
-			columns = columns.sort((a,b) => a.difference - b.difference)
+			columns = columns.sort((a, b) => a.difference - b.difference)
 		}
 
 		return (
 			<Container>
-				{columns.map(column =>(
+				{columns.map(column => (
 					renderColumn(column)
 				))}
 			</Container>
@@ -209,7 +209,7 @@ export const CardTimeline = ({cards, mode, collapsed, relativeCards, useRelative
 		)
 	}
 
-	if(useRelativeDates) {
+	if (useRelativeDates) {
 		return renderColumnsWithoutDueDates()
 	}
 	else {

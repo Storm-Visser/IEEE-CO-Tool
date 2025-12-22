@@ -8,6 +8,8 @@ const {BASE_URL} = require('./constants')
 const {appKey} = require('./constants')
 const {appName} = require('./constants')
 
+// The popup that shows when clicking setting a new relative due date on a card
+
 const t = TrelloPowerUp.iframe({
 	appKey: appKey,
 	appName: appName

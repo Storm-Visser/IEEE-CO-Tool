@@ -1,7 +1,10 @@
 <!DOCTYPE html>
+<!-- The page that recieves the OAUTH token and stores it to be used in the app -->
+
 <head>
     <script src="https://p.trellocdn.com/power-up.min.js"></script>
 </head>
+
 <body>
     <h2>Authorization in progress, please wait</h2>
 </body>
@@ -9,9 +12,9 @@
     let authorize;
 
     try {
-    if (window.opener && typeof window.opener.authorize === "function") {
-        authorize = window.opener.authorize;
-    }
+        if (window.opener && typeof window.opener.authorize === "function") {
+            authorize = window.opener.authorize;
+        }
     } catch (e) {
         // Security settings are preventing this, fall back to local storage.
     }
@@ -24,7 +27,7 @@
         localStorage.setItem("token", token);
     }
 
-    setTimeout(function () {
+    setTimeout(function() {
         window.close();
     }, 1000);
 </script>
