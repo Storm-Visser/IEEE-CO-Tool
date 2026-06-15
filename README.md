@@ -26,3 +26,5 @@ When all the capabilities are added, the power-up should work properly.
 
 Instead of needing to manually add the power-up to the board, it will be ideal to publish the power-up so everyone can download it. If desirable, it is also possible to define what users will get the benefits of the power-up, such that no unwanted people can use it. 
 
+## Architecture
+The image below shows the flow of data with the different API's. The IEEE API is used to keep track of the relative due date, as this is not part of the original Trello API. The Trello API is used for everything else, and is required to alter anything that is not part of the relative due date.
