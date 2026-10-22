@@ -10,8 +10,8 @@ const {calendarPopup} = require('./dateFunctions')
 const {verifyRules } = require('./utils')
 
 const ICONS = {
-    help: 'https://relative-due-date.idi.ntnu.no/icons/circle-help.svg',
-    timeline: 'https://relative-due-date.idi.ntnu.no/icons/calendar-clock.svg'
+    help: 'https://relative-due-date.idi.ntnu.no/icons/circle-question-mark.svg.svg',
+    timeline: 'https://relative-due-date.idi.ntnu.no/icons/calendar-days.svg'
 };
 
 const openPopup = (t, opts) => {
