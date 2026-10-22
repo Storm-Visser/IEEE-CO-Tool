@@ -9,6 +9,11 @@ const {verifyCard, generateBadgeText} = require('./badgeFunctions')
 const {calendarPopup} = require('./dateFunctions')
 const {verifyRules } = require('./utils')
 
+const ICONS = {
+    help: 'https://relative-due-date.idi.ntnu.no/icons/circle-help.svg',
+    timeline: 'https://relative-due-date.idi.ntnu.no/icons/calendar-clock.svg'
+};
+
 const openPopup = (t, opts) => {
   return t.popup({
     title: 'Cards',
@@ -59,8 +64,8 @@ window.TrelloPowerUp.initialize({
     if (token) {
       // User already authorized
       return [
-        { text: 'Help', callback: openDocumentation },
-        { text: 'CIS Timeline', callback: openTimeline }
+        { icon: ICONS.help, text: 'Help', callback: openDocumentation },
+        { icon: ICONS.timeline, text: 'CIS Timeline', callback: openTimeline }
       ];
     } else {
       // User not authorized → authorize
